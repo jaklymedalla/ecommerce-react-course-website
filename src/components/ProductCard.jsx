@@ -28,3 +28,4 @@ export default function ProductCard({product}){
                     </div>
     )
 }
+// continue at 3:07:34
