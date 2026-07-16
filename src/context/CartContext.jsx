@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { set } from "react-hook-form";
+import { getProductById } from "../data/products";
 
 const CartContext = createContext(null);
 
@@ -23,8 +24,15 @@ export default function CartProvider({children}){
     }
 
     return (
-    <CartContext.Provider value={ {cartItems, addToCart} }>{children}</CartContext.Provider>
+    <CartContext.Provider value={ {cartItems, addToCart, getCartItemsWithProducts} }>{children}</CartContext.Provider>
     );
+    
+    function getCartItemsWithProducts(){
+        return cartItems.map( item =>({
+            ...item,
+            product: getProductById(item.id)
+        })).filter(item => item.product);
+    }
 }
 
 export function useCart(){
